@@ -1,0 +1,6 @@
+c:\users\user\documents\visual studio 2017\Projects\ClientTigli\ClientTigli\bin\Debug\ClientTigli.exe.config
+c:\users\user\documents\visual studio 2017\Projects\ClientTigli\ClientTigli\bin\Debug\ClientTigli.exe
+c:\users\user\documents\visual studio 2017\Projects\ClientTigli\ClientTigli\bin\Debug\ClientTigli.pdb
+c:\users\user\documents\visual studio 2017\Projects\ClientTigli\ClientTigli\obj\Debug\ClientTigli.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2017\Projects\ClientTigli\ClientTigli\obj\Debug\ClientTigli.exe
+c:\users\user\documents\visual studio 2017\Projects\ClientTigli\ClientTigli\obj\Debug\ClientTigli.pdb
