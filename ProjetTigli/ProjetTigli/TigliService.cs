@@ -79,10 +79,48 @@ namespace ProjetTigli
 
             }
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
 
             return origin + "whatever" + destination;
+        }
+
+        public string getCoords(string address)
+        {
+            string basereq = "https://maps.googleapis.com/maps/api/geocode/xml?";
+            string url_address = address.Replace(" ", "+");
+            string key = "&key=AIzaSyBtSz9ZE9l8bKrmRg7juvP_DpomyU7epO8";
+
+            string responseFromServer = new StreamReader(
+                WebRequest.Create(basereq + "address=" + url_address + key)
+                .GetResponse()
+                .GetResponseStream()
+                ).ReadToEnd();
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(responseFromServer);
+            
+
+            float position_lat;
+            float position_lng;
+
+           /**if (doc.GetElementsByTagName("status")[0].Equals("OK"))
+            {
+                XmlNodeList elemList = doc.GetElementsByTagName("location");
+                //lat="48.857940092963034" lng="2.347010058114489"
+                position_lat = float.Parse(
+                    elemList[0].Value,
+                    CultureInfo.InvariantCulture.NumberFormat);
+
+                position_lng = float.Parse(
+                    elemList[1].Value,
+                    CultureInfo.InvariantCulture.NumberFormat);
+
+                return "Address: " + address + "\nCoordinates: lat = " + position_lat + " long = " + position_lng; 
+            }**/
+
+            return responseFromServer;
+
         }
 
         private float distance(float x1, float y1, float x2, float y2)
@@ -125,13 +163,7 @@ namespace ProjetTigli
                     elemList[i].Attributes["lng"].Value,
                     CultureInfo.InvariantCulture.NumberFormat);
 
-                float dist = distance(f_lat, f_longi, station_lat, station_lng);
-
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    minIndex = i;
-                }
+              
             }
 
             return elemList[minIndex];

@@ -25,6 +25,11 @@ namespace ProjetTigli
            RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string echoget(string origin, string destination);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "coord/address={address}",
+           RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string getCoords(string address);
+
 
         // TODO: ajoutez vos opérations de service ici
     }

@@ -19,13 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8080/tigli/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8081/tigli/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="baae8608-7fee-42d2-90a8-f6f3e1a816d0" SourceId="1" SourceUrl="http://localhost:8080/tigli/?xsd=xsd1" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="5dd2819e-cd98-4bf9-99d2-00d7704bb2f1" SourceId="1" SourceUrl="http://localhost:8080/tigli/?disco" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="d9b78c5b-2e3d-4c07-9988-abf1cd2dd7c8" SourceId="1" SourceUrl="http://localhost:8080/tigli/?xsd=xsd0" />
-    <MetadataFile FileName="TigliService.wsdl" MetadataType="Wsdl" ID="a1449c74-d5ea-4486-a89b-8e89b774b743" SourceId="1" SourceUrl="http://localhost:8080/tigli/?wsdl" />
+    <MetadataFile FileName="TigliService1.wsdl" MetadataType="Wsdl" ID="46140cb2-5868-4049-9ce7-bf5a567105e8" SourceId="1" SourceUrl="http://localhost:8081/tigli/?wsdl" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="abdd1f46-1676-432b-b77b-e152b6b88445" SourceId="1" SourceUrl="http://localhost:8081/tigli/?xsd=xsd1" />
+    <MetadataFile FileName="item21.xsd" MetadataType="Schema" ID="97691d54-be5f-45bb-a370-f33f67a22377" SourceId="1" SourceUrl="http://localhost:8081/tigli/?xsd=xsd0" />
+    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="f368bb97-0267-4363-b28d-38be420d981a" SourceId="1" SourceUrl="http://localhost:8081/tigli/?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

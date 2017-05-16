@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="Uv3PNNhDHfh12MUcSwOSip+F4xw=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="9lYlzqMj9o7oLnYbBEmAGlNq1mQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_ITigliService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_ITigliService" contract="ServiceTigli.ITigliService" bindingType="basicHttpBinding" address="http://localhost:8080/tigli/" bindingConfiguration="BasicHttpBinding_ITigliService">
+    <endpoint name="BasicHttpBinding_ITigliService" contract="ServiceTigli.ITigliService" bindingType="basicHttpBinding" address="http://localhost:8081/tigli/" bindingConfiguration="BasicHttpBinding_ITigliService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:8080/tigli/</serializedValue>
+          <serializedValue>http://localhost:8081/tigli/</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -20,6 +20,12 @@ namespace ClientTigli.ServiceTigli {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/echoget", ReplyAction="http://tempuri.org/ITigliService/echogetResponse")]
         System.Threading.Tasks.Task<string> echogetAsync(string origin, string destination);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/getCoords", ReplyAction="http://tempuri.org/ITigliService/getCoordsResponse")]
+        string getCoords(string address);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/getCoords", ReplyAction="http://tempuri.org/ITigliService/getCoordsResponse")]
+        System.Threading.Tasks.Task<string> getCoordsAsync(string address);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace ClientTigli.ServiceTigli {
         
         public System.Threading.Tasks.Task<string> echogetAsync(string origin, string destination) {
             return base.Channel.echogetAsync(origin, destination);
+        }
+        
+        public string getCoords(string address) {
+            return base.Channel.getCoords(address);
+        }
+        
+        public System.Threading.Tasks.Task<string> getCoordsAsync(string address) {
+            return base.Channel.getCoordsAsync(address);
         }
     }
 }

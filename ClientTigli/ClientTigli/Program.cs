@@ -11,8 +11,8 @@ namespace ClientTigli
         static void Main(string[] args)
         {
             ServiceTigli.TigliServiceClient tigliClient = new ServiceTigli.TigliServiceClient();
-            Console.WriteLine(tigliClient.echoget("Paris", "Grenoble"));
-
+            //Console.WriteLine(tigliClient.echoget("Paris", "Grenoble"));
+            Console.WriteLine(tigliClient.getCoords("39 Avenue de la Redoute, 92600 Asnières sur Seine, France"));
             Console.ReadKey();
         }
     }

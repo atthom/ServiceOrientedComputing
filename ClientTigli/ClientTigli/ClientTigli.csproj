@@ -54,22 +54,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\ServiceTigli\item.xsd">
+    <None Include="Connected Services\ServiceTigli\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceTigli\item1.xsd">
+    <None Include="Connected Services\ServiceTigli\item21.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceTigli\TigliService.wsdl" />
+    <None Include="Connected Services\ServiceTigli\TigliService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceTigli\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServiceTigli\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceTigli\configuration91.svcinfo" />
@@ -82,6 +79,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceTigli\item1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
