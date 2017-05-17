@@ -6,32 +6,32 @@
       <xsd:import schemaLocation="http://localhost:8081/tigli/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ITigliService_echoget_InputMessage">
-    <wsdl:part name="parameters" element="tns:echoget" />
+  <wsdl:message name="ITigliService_GetItinerary_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetItinerary" />
   </wsdl:message>
-  <wsdl:message name="ITigliService_echoget_OutputMessage">
-    <wsdl:part name="parameters" element="tns:echogetResponse" />
+  <wsdl:message name="ITigliService_GetItinerary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetItineraryResponse" />
   </wsdl:message>
-  <wsdl:message name="ITigliService_getCoords_InputMessage">
-    <wsdl:part name="parameters" element="tns:getCoords" />
+  <wsdl:message name="ITigliService_GetCoords_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCoords" />
   </wsdl:message>
-  <wsdl:message name="ITigliService_getCoords_OutputMessage">
-    <wsdl:part name="parameters" element="tns:getCoordsResponse" />
+  <wsdl:message name="ITigliService_GetCoords_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCoordsResponse" />
   </wsdl:message>
   <wsdl:portType name="ITigliService">
-    <wsdl:operation name="echoget">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITigliService/echoget" message="tns:ITigliService_echoget_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITigliService/echogetResponse" message="tns:ITigliService_echoget_OutputMessage" />
+    <wsdl:operation name="GetItinerary">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITigliService/GetItinerary" message="tns:ITigliService_GetItinerary_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITigliService/GetItineraryResponse" message="tns:ITigliService_GetItinerary_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="getCoords">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITigliService/getCoords" message="tns:ITigliService_getCoords_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITigliService/getCoordsResponse" message="tns:ITigliService_getCoords_OutputMessage" />
+    <wsdl:operation name="GetCoords">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITigliService/GetCoords" message="tns:ITigliService_GetCoords_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITigliService/GetCoordsResponse" message="tns:ITigliService_GetCoords_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITigliService" type="tns:ITigliService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="echoget">
-      <soap:operation soapAction="http://tempuri.org/ITigliService/echoget" style="document" />
+    <wsdl:operation name="GetItinerary">
+      <soap:operation soapAction="http://tempuri.org/ITigliService/GetItinerary" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -39,8 +39,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getCoords">
-      <soap:operation soapAction="http://tempuri.org/ITigliService/getCoords" style="document" />
+    <wsdl:operation name="GetCoords">
+      <soap:operation soapAction="http://tempuri.org/ITigliService/GetCoords" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

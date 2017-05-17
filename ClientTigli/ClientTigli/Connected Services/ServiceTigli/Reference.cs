@@ -15,17 +15,17 @@ namespace ClientTigli.ServiceTigli {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceTigli.ITigliService")]
     public interface ITigliService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/echoget", ReplyAction="http://tempuri.org/ITigliService/echogetResponse")]
-        string echoget(string origin, string destination);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/GetItinerary", ReplyAction="http://tempuri.org/ITigliService/GetItineraryResponse")]
+        string GetItinerary(string origin, string destination);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/echoget", ReplyAction="http://tempuri.org/ITigliService/echogetResponse")]
-        System.Threading.Tasks.Task<string> echogetAsync(string origin, string destination);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/GetItinerary", ReplyAction="http://tempuri.org/ITigliService/GetItineraryResponse")]
+        System.Threading.Tasks.Task<string> GetItineraryAsync(string origin, string destination);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/getCoords", ReplyAction="http://tempuri.org/ITigliService/getCoordsResponse")]
-        string getCoords(string address);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/GetCoords", ReplyAction="http://tempuri.org/ITigliService/GetCoordsResponse")]
+        string GetCoords(string address);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/getCoords", ReplyAction="http://tempuri.org/ITigliService/getCoordsResponse")]
-        System.Threading.Tasks.Task<string> getCoordsAsync(string address);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITigliService/GetCoords", ReplyAction="http://tempuri.org/ITigliService/GetCoordsResponse")]
+        System.Threading.Tasks.Task<string> GetCoordsAsync(string address);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,20 +55,20 @@ namespace ClientTigli.ServiceTigli {
                 base(binding, remoteAddress) {
         }
         
-        public string echoget(string origin, string destination) {
-            return base.Channel.echoget(origin, destination);
+        public string GetItinerary(string origin, string destination) {
+            return base.Channel.GetItinerary(origin, destination);
         }
         
-        public System.Threading.Tasks.Task<string> echogetAsync(string origin, string destination) {
-            return base.Channel.echogetAsync(origin, destination);
+        public System.Threading.Tasks.Task<string> GetItineraryAsync(string origin, string destination) {
+            return base.Channel.GetItineraryAsync(origin, destination);
         }
         
-        public string getCoords(string address) {
-            return base.Channel.getCoords(address);
+        public string GetCoords(string address) {
+            return base.Channel.GetCoords(address);
         }
         
-        public System.Threading.Tasks.Task<string> getCoordsAsync(string address) {
-            return base.Channel.getCoordsAsync(address);
+        public System.Threading.Tasks.Task<string> GetCoordsAsync(string address) {
+            return base.Channel.GetCoordsAsync(address);
         }
     }
 }
