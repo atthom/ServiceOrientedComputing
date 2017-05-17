@@ -43,14 +43,14 @@ namespace ProjetTigli
 
             // If origin and destination have the same closest station then you are close so you can walk
             // Otherwise we compute the itinerary !!!
-            if (closest_dest_station["name"] == closest_orig_station["name"])
+            if (closest_dest_station.Attributes["name"].Value.Equals(closest_orig_station.Attributes["name"].Value))
             {
                 result = "Pas besoin de prendre le vélo, tu es suffisament près pour y aller à pied mec...";
             }
             else
             {
                 //TODO: Reduce this if possible
-                result = "Walking to the station : " + closest_orig_station["name"];
+                result = "Walk to the station : " + closest_orig_station.Attributes["name"].Value;
 
                 String walkingTotheStop = GetPathBetweenCoords(
                     orig_latitude, orig_long,
@@ -60,7 +60,7 @@ namespace ProjetTigli
 
                 result += FormatXMLAnwser(walkingTotheStop);
 
-                result += "Biking from the station" + closest_orig_station["name"] + " to the station : " + closest_dest_station["name"];
+                result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value;
 
                 String bikingtothestop = GetPathBetweenCoords(
                     closest_orig_station.Attributes["lat"].Value, closest_orig_station.Attributes["lng"].Value,
@@ -69,7 +69,7 @@ namespace ProjetTigli
 
                 result += FormatXMLAnwser(bikingtothestop);
 
-                result += "Walking from the station " + closest_dest_station["name"] + " to your final destination :";
+                result += "Walk from the station: " + closest_dest_station.Attributes["name"].Value + " to your final destination: ";
 
                 String walkingtotheend = GetPathBetweenCoords(
                      closest_dest_station.Attributes["lat"].Value, closest_dest_station.Attributes["lng"].Value,
@@ -178,10 +178,11 @@ namespace ProjetTigli
                     elemList[i].Attributes["lng"].Value,
                     CultureInfo.InvariantCulture.NumberFormat);
 
-                if (Distance(f_lat * 1000, f_longi * 1000, station_lat * 1000, station_lng * 1000) < minDist)
+                // Factor 10000 to be sure that round up doesn't mess with the distance computation
+                if (Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000) < minDist)
                 {
                     minIndex = i;
-                    minDist = Distance(f_lat * 1000, f_longi * 1000, station_lat * 1000, station_lng * 1000);
+                    minDist = Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000);
                 }
             }
 
@@ -266,7 +267,7 @@ namespace ProjetTigli
                 path_to_follow = "Step " + i + ": " + str_mode + distance + " during " + duration + "\n\t Hint : " + html_instructions +"\n";
             }
 
-            path_to_follow = "\nYou are now at : " + start + "\n";
+            path_to_follow = "\nYou will then be at : " + start + "\n";
 
             return path_to_follow;
         }
