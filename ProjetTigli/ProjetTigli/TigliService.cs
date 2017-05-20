@@ -25,9 +25,6 @@ namespace ProjetTigli
             string dest_latitude = destination.Split('>')[1].Split('<')[0];
             string dest_long = destination.Split('>')[3].Split('<')[0];
             
-            // !!! Debug !!!
-            Console.WriteLine("Origin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long);
-            
 
             // Get closest stations to origin and destination (using latitude and longitude coordinates)
             XmlNode closest_orig_station = GetClosestStation(orig_latitude, orig_long);
@@ -70,9 +67,7 @@ namespace ProjetTigli
 
                 result += FormatXMLAnwser(bikingtothestop);
             }
-
-            //TODO: return itinerary instead !
-            //return ("Origin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long);
+            
             return result;
         }
 
@@ -88,15 +83,6 @@ namespace ProjetTigli
                 .GetResponseStream()
                 ).ReadToEnd();
             
-            // Static response used to test of line
-            /**string responseFromServer = "<GeocodeResponse><status>OK</status><result><type>street_address</type>"
-                    + "<formatted_address>1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA</formatted_address>"
-                    + "<address_component><long_name>1600</long_name><short_name>1600</short_name><type>street_number</type></address_component>"
-                    + "<address_component><long_name>Amphitheatre Pkwy</long_name><short_name>Amphitheatre Pkwy</short_name><type>route</type></address_component>"
-                    + "<geometry><location><lat>37.4217550</lat><lng>-122.0846330</lng></location><location_type>ROOFTOP</location_type>"
-                    + "<viewport><southwest><lat>37.4188514</lat><lng>-122.0874526</lng></southwest><northeast><lat>37.4251466</lat><lng>-122.0811574</lng></northeast></viewport>"
-                    + "</geometry></result></GeocodeResponse>";
-            **/
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(responseFromServer);
 
@@ -120,15 +106,13 @@ namespace ProjetTigli
                      elemList[1].InnerXml,
                      CultureInfo.InvariantCulture.NumberFormat);
                 
-                // !!! Debug !!!
-                Console.WriteLine("Address: " + address + "\nCoordinates: lat = " + position_lat + " long = " + position_lng);
 
                 return doc.GetElementsByTagName("location")[0].InnerXml;
             }
 
             return "Status: " + doc.GetElementsByTagName("status")[0].InnerXml;
         }
-
+       
 
         private float Distance(float x1, float y1, float x2, float y2)
         {
