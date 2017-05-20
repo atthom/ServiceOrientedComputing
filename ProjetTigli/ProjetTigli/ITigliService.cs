@@ -13,13 +13,6 @@ namespace ProjetTigli
     public interface ITigliService
     {
 
-        /*
-        [OperationContract]
-        string GetData(int value);
-        
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-        */
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "tigli/origin={origin}&destination={destination}",
            RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
@@ -29,59 +22,7 @@ namespace ProjetTigli
         [WebInvoke(Method = "GET", UriTemplate = "coord/address={address}",
            RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string GetCoords(string address);
-
-
-        // TODO: ajoutez vos opérations de service ici
+        
     }
-
-    // Utilisez un contrat de données comme indiqué dans l'exemple ci-après pour ajouter les types composites aux opérations de service.
-    // Vous pouvez ajouter des fichiers XSD au projet. Une fois le projet généré, vous pouvez utiliser directement les types de données qui y sont définis, avec l'espace de noms "ProjetTigli.ContractType".
-
-        /*
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string origin_lat = "";
-        string origin_long = "";
-        string dest_lat = "";
-        string dest_long = "";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string Origin_long
-        {
-            get { return origin_long; }
-            set { origin_long = value; }
-        }
-
-        [DataMember]
-        public string Origin_lat
-        {
-            get { return origin_lat; }
-            set { origin_lat = value; }
-        }
-
-        [DataMember]
-        public string Dest_long
-        {
-            get { return dest_long; }
-            set { dest_long = value; }
-        }
-
-        [DataMember]
-        public string Dest_lat
-        {
-            get { return dest_lat; }
-            set { dest_lat = value; }
-        }
-
-
-    }*/
+    
 }

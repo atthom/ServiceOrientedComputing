@@ -7,6 +7,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Web;
 using System.Xml;
 
 namespace ProjetTigli
@@ -17,20 +18,13 @@ namespace ProjetTigli
 
         public string GetItinerary(string origin, string destination)
         {
-            // TODO: Use regex instead
-            string orig_latitude = origin.Split('>')[1].Split('<')[0];
-            //string orig_latitude = "48.859150287255645";
 
+            string orig_latitude = origin.Split('>')[1].Split('<')[0];
             string orig_long = origin.Split('>')[3].Split('<')[0];
-            //string orig_long = "2.347620087684511";
 
             string dest_latitude = destination.Split('>')[1].Split('<')[0];
-            //string dest_latitude = "48.89465024997023";
-
             string dest_long = destination.Split('>')[3].Split('<')[0];
-            //string dest_long = "2.381868729508476";
-
-
+            
             // !!! Debug !!!
             Console.WriteLine("Origin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long);
             
@@ -59,7 +53,6 @@ namespace ProjetTigli
                     "walking");
 
                 result += FormatXMLAnwser(walkingTotheStop);
-
                 result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value;
 
                 String bikingtothestop = GetPathBetweenCoords(
@@ -68,7 +61,6 @@ namespace ProjetTigli
                     "bicycling");
 
                 result += FormatXMLAnwser(bikingtothestop);
-
                 result += "Walk from the station: " + closest_dest_station.Attributes["name"].Value + " to your final destination: ";
 
                 String walkingtotheend = GetPathBetweenCoords(
@@ -77,7 +69,6 @@ namespace ProjetTigli
                     "walking");
 
                 result += FormatXMLAnwser(bikingtothestop);
-
             }
 
             //TODO: return itinerary instead !
@@ -210,6 +201,7 @@ namespace ProjetTigli
         // TODO: Explain what this is reduce the function if possible.
         private string FormatXMLAnwser(string response)
         {
+            response = HttpUtility.HtmlDecode(response);            
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(response);
             string start = doc.GetElementsByTagName("start_address")[0].InnerXml;
@@ -264,10 +256,10 @@ namespace ProjetTigli
                     str_mode = "Bike ";
                 }
 
-                path_to_follow = "Step " + i + ": " + str_mode + distance + " during " + duration + "\n\t Hint : " + html_instructions +"\n";
+                path_to_follow += "\tStep " + i + ": " + str_mode + distance + " during " + duration + "\n\t\t Hint : " + html_instructions +"\n";
             }
 
-            path_to_follow = "\nYou will then be at : " + start + "\n";
+            path_to_follow += "\nYou will then be at : " + start + "\n";
 
             return path_to_follow;
         }

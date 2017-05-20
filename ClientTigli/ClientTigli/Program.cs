@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ClientTigli
 {
+
+    // 77 Boulevard de Courcelles 48.878319,2.2981875
+    // 57 Avenue du Dr Arnold Netter 48.8449208,2.403417
     class Program
     {
         static void Main(string[] args)
@@ -49,21 +53,20 @@ namespace ClientTigli
 
             // TODO: Use regex instead
             string orig_latitude = departure_coords.Split('>')[1].Split('<')[0];
-
             string orig_long = departure_coords.Split('>')[3].Split('<')[0];
 
             string dest_latitude = arrival_coords.Split('>')[1].Split('<')[0];
-
             string dest_long = arrival_coords.Split('>')[3].Split('<')[0];
 
 
             // !!! Debug !!!
             Console.WriteLine("Origin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long);
             Console.WriteLine("Here is the way to go: ");
-
-            Console.WriteLine(tigliClient.GetItinerary(departure_coords, arrival_coords));
-
-
+            
+            Console.WriteLine(
+                tigliClient.GetItinerary(
+                    departure_coords, 
+                    arrival_coords));
         }
     }
 }
