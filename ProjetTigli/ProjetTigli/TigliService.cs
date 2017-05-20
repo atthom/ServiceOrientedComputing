@@ -41,7 +41,7 @@ namespace ProjetTigli
             else
             {
                 //TODO: Reduce this if possible
-                result = "Walk to the station : " + closest_orig_station.Attributes["name"].Value;
+                result = "Walk to the station : " + closest_orig_station.Attributes["name"].Value + "\n";
 
                 String walkingTotheStop = GetPathBetweenCoords(
                     orig_latitude, orig_long,
@@ -50,7 +50,7 @@ namespace ProjetTigli
                     "walking");
 
                 result += FormatXMLAnwser(walkingTotheStop);
-                result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value;
+                result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value + "\n";
 
                 String bikingtothestop = GetPathBetweenCoords(
                     closest_orig_station.Attributes["lat"].Value, closest_orig_station.Attributes["lng"].Value,
@@ -58,7 +58,7 @@ namespace ProjetTigli
                     "bicycling");
 
                 result += FormatXMLAnwser(bikingtothestop);
-                result += "Walk from the station: " + closest_dest_station.Attributes["name"].Value + " to your final destination: ";
+                result += "Walk from the station: " + closest_dest_station.Attributes["name"].Value + " to your final destination: \n";
 
                 String walkingtotheend = GetPathBetweenCoords(
                      closest_dest_station.Attributes["lat"].Value, closest_dest_station.Attributes["lng"].Value,
@@ -105,14 +105,12 @@ namespace ProjetTigli
                  position_lng = float.Parse(
                      elemList[1].InnerXml,
                      CultureInfo.InvariantCulture.NumberFormat);
-                
 
                 return doc.GetElementsByTagName("location")[0].InnerXml;
             }
 
-            return "Status: " + doc.GetElementsByTagName("status")[0].InnerXml;
-        }
-       
+            return "Status: " + doc.GetElementsByTagName("status")[0].InnerText;
+        }       
 
         private float Distance(float x1, float y1, float x2, float y2)
         {
@@ -154,7 +152,7 @@ namespace ProjetTigli
                     CultureInfo.InvariantCulture.NumberFormat);
 
                 // Factor 10000 to be sure that round up doesn't mess with the distance computation
-                if (Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000) < minDist)
+                if (Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000) < minDist /*&& isStationAvailable(elemList[i])*/)
                 {
                     minIndex = i;
                     minDist = Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000);
@@ -162,6 +160,31 @@ namespace ProjetTigli
             }
 
             return elemList[minIndex];
+        }
+        
+        private bool isStationAvailable(XmlNode station)
+        {
+            String name = station.Attributes["name"].Value;
+            int id = int.Parse(name.Substring(0, 5));
+
+            string responseFromServer = new StreamReader(
+                WebRequest.Create("http://www.velib.paris/service/stationdetails/" + id)
+                .GetResponse()
+                .GetResponseStream()
+                ).ReadToEnd();
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(responseFromServer);
+
+            XmlNodeList available = doc.GetElementsByTagName("available");
+            int nb_available = int.Parse(available[0].InnerText);
+
+            if(nb_available == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Give the path to go from (lat1, long1) to (lat2, long2)
@@ -243,7 +266,7 @@ namespace ProjetTigli
                 path_to_follow += "\tStep " + i + ": " + str_mode + distance + " during " + duration + "\n\t\t Hint : " + html_instructions +"\n";
             }
 
-            path_to_follow += "\nYou will then be at : " + start + "\n";
+            path_to_follow += "\nYou will then be at : " + end + "\n";
 
             return path_to_follow;
         }
