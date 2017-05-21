@@ -1,5 +1,0 @@
-C:\Users\user\Documents\SI4\Web_Services\ServiceOrientedComputing\ClientTigli\ClientTigli\bin\Debug\ClientTigli.exe.config
-C:\Users\user\Documents\SI4\Web_Services\ServiceOrientedComputing\ClientTigli\ClientTigli\bin\Debug\ClientTigli.exe
-C:\Users\user\Documents\SI4\Web_Services\ServiceOrientedComputing\ClientTigli\ClientTigli\bin\Debug\ClientTigli.pdb
-C:\Users\user\Documents\SI4\Web_Services\ServiceOrientedComputing\ClientTigli\ClientTigli\obj\Debug\ClientTigli.exe
-C:\Users\user\Documents\SI4\Web_Services\ServiceOrientedComputing\ClientTigli\ClientTigli\obj\Debug\ClientTigli.pdb
