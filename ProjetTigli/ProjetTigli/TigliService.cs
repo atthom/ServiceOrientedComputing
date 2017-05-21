@@ -7,6 +7,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Web;
 using System.Xml;
 
 namespace ProjetTigli
@@ -17,22 +18,12 @@ namespace ProjetTigli
 
         public string GetItinerary(string origin, string destination)
         {
-            // TODO: Use regex instead
-            string orig_latitude = origin.Split('>')[1].Split('<')[0];
-            //string orig_latitude = "48.859150287255645";
 
+            string orig_latitude = origin.Split('>')[1].Split('<')[0];
             string orig_long = origin.Split('>')[3].Split('<')[0];
-            //string orig_long = "2.347620087684511";
 
             string dest_latitude = destination.Split('>')[1].Split('<')[0];
-            //string dest_latitude = "48.89465024997023";
-
             string dest_long = destination.Split('>')[3].Split('<')[0];
-            //string dest_long = "2.381868729508476";
-
-
-            // !!! Debug !!!
-            Console.WriteLine("Origin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long);
             
 
             // Get closest stations to origin and destination (using latitude and longitude coordinates)
@@ -50,7 +41,7 @@ namespace ProjetTigli
             else
             {
                 //TODO: Reduce this if possible
-                result = "Walk to the station : " + closest_orig_station.Attributes["name"].Value;
+                result = "Walk to the station : " + closest_orig_station.Attributes["name"].Value + "\n";
 
                 String walkingTotheStop = GetPathBetweenCoords(
                     orig_latitude, orig_long,
@@ -58,9 +49,9 @@ namespace ProjetTigli
                     closest_orig_station.Attributes["lng"].Value,
                     "walking");
 
-                result += walkingTotheStop;
 
-                result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value;
+                result += FormatXMLAnwser(walkingTotheStop);
+                result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value + "\n";
 
                 String bikingtothestop = GetPathBetweenCoords(
                     closest_orig_station.Attributes["lat"].Value, closest_orig_station.Attributes["lng"].Value,
@@ -68,8 +59,7 @@ namespace ProjetTigli
                     "bicycling");
 
                 result += FormatXMLAnwser(bikingtothestop);
-
-                result += "Walk from the station: " + closest_dest_station.Attributes["name"].Value + " to your final destination: ";
+                result += "Walk from the station: " + closest_dest_station.Attributes["name"].Value + " to your final destination: \n";
 
                 String walkingtotheend = GetPathBetweenCoords(
                      closest_dest_station.Attributes["lat"].Value, closest_dest_station.Attributes["lng"].Value,
@@ -77,11 +67,8 @@ namespace ProjetTigli
                     "walking");
 
                 result += FormatXMLAnwser(bikingtothestop);
-
             }
-
-            //TODO: return itinerary instead !
-            //return ("Origin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long);
+            
             return result;
         }
 
@@ -97,15 +84,6 @@ namespace ProjetTigli
                 .GetResponseStream()
                 ).ReadToEnd();
             
-            // Static response used to test of line
-            /**string responseFromServer = "<GeocodeResponse><status>OK</status><result><type>street_address</type>"
-                    + "<formatted_address>1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA</formatted_address>"
-                    + "<address_component><long_name>1600</long_name><short_name>1600</short_name><type>street_number</type></address_component>"
-                    + "<address_component><long_name>Amphitheatre Pkwy</long_name><short_name>Amphitheatre Pkwy</short_name><type>route</type></address_component>"
-                    + "<geometry><location><lat>37.4217550</lat><lng>-122.0846330</lng></location><location_type>ROOFTOP</location_type>"
-                    + "<viewport><southwest><lat>37.4188514</lat><lng>-122.0874526</lng></southwest><northeast><lat>37.4251466</lat><lng>-122.0811574</lng></northeast></viewport>"
-                    + "</geometry></result></GeocodeResponse>";
-            **/
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(responseFromServer);
 
@@ -128,16 +106,12 @@ namespace ProjetTigli
                  position_lng = float.Parse(
                      elemList[1].InnerXml,
                      CultureInfo.InvariantCulture.NumberFormat);
-                
-                // !!! Debug !!!
-                Console.WriteLine("Address: " + address + "\nCoordinates: lat = " + position_lat + " long = " + position_lng);
 
                 return doc.GetElementsByTagName("location")[0].InnerXml;
             }
 
-            return "Status: " + doc.GetElementsByTagName("status")[0].InnerXml;
-        }
-
+            return "Status: " + doc.GetElementsByTagName("status")[0].InnerText;
+        }       
 
         private float Distance(float x1, float y1, float x2, float y2)
         {
@@ -179,7 +153,7 @@ namespace ProjetTigli
                     CultureInfo.InvariantCulture.NumberFormat);
 
                 // Factor 10000 to be sure that round up doesn't mess with the distance computation
-                if (Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000) < minDist)
+                if (Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000) < minDist /*&& isStationAvailable(elemList[i])*/)
                 {
                     minIndex = i;
                     minDist = Distance(f_lat * 10000, f_longi * 10000, station_lat * 10000, station_lng * 10000);
@@ -187,6 +161,31 @@ namespace ProjetTigli
             }
 
             return elemList[minIndex];
+        }
+        
+        private bool isStationAvailable(XmlNode station)
+        {
+            String name = station.Attributes["name"].Value;
+            int id = int.Parse(name.Substring(0, 5));
+
+            string responseFromServer = new StreamReader(
+                WebRequest.Create("http://www.velib.paris/service/stationdetails/" + id)
+                .GetResponse()
+                .GetResponseStream()
+                ).ReadToEnd();
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(responseFromServer);
+
+            XmlNodeList available = doc.GetElementsByTagName("available");
+            int nb_available = int.Parse(available[0].InnerText);
+
+            if(nb_available == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Give the path to go from (lat1, long1) to (lat2, long2)
@@ -210,6 +209,7 @@ namespace ProjetTigli
         // TODO: Explain what this is reduce the function if possible.
         private string FormatXMLAnwser(string response)
         {
+            response = HttpUtility.HtmlDecode(response);            
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(response);
             string start = doc.GetElementsByTagName("start_address")[0].InnerXml;
@@ -264,10 +264,10 @@ namespace ProjetTigli
                     str_mode = "Bike ";
                 }
 
-                path_to_follow = "Step " + i + ": " + str_mode + distance + " during " + duration + "\n\t Hint : " + html_instructions +"\n";
+                path_to_follow += "\tStep " + i + ": " + str_mode + distance + " during " + duration + "\n\t\t Hint : " + html_instructions +"\n";
             }
 
-            path_to_follow = "\nYou will then be at : " + start + "\n";
+            path_to_follow += "\nYou will then be at : " + end + "\n";
 
             return path_to_follow;
         }
