@@ -10,12 +10,23 @@ namespace ClientIntranet
     {
         static void Main(string[] args)
         {
-            VelibService.VelibServiceClient tigliClient = new VelibService.VelibServiceClient("intranet");
+            VelibService.VelibServiceClient intranetClient = new VelibService.VelibServiceClient("intranet");
             string shouldContinue = "yes";
+
+            Console.WriteLine("Would you like to have a demo first ? (Yes,y|No,n)");
+            string wantDemo = Console.ReadLine();
+            if(wantDemo.ToLower().Equals("yes") || wantDemo.ToLower().Equals("y"))
+            {
+                InteractionDemo(intranetClient); 
+            }
+
+            Console.WriteLine("Would you like to try our service yourself now ? (Yes,y|No,n)");
+            shouldContinue = Console.ReadLine();
+
 
             while (shouldContinue.ToLower().Equals("yes") || shouldContinue.ToLower().Equals("y"))
             {
-                InteractWithUser(tigliClient);
+                InteractWithUser(intranetClient);
                 Console.WriteLine("Do you want to lookup a new itinerary ? (Yes,y|No,n)");
                 shouldContinue = Console.ReadLine();
             }
@@ -23,12 +34,12 @@ namespace ClientIntranet
         }
 
         // Equivalent of a form, ask to the user his travel information 
-        private static void InteractWithUser(VelibService.VelibServiceClient tigliClient)
+        private static void InteractWithUser(VelibService.VelibServiceClient intranetClient)
         {
-            Console.WriteLine("Enter your departure address: ");
+            Console.WriteLine("\nEnter your departure address: ");
             //Instance of departure/arrival address format : 39 Avenue de la Redoute, 92600 Asnières sur Seine, France
             string departure_address = Console.ReadLine();
-            string departure_coords = tigliClient.GetCoords(departure_address);
+            string departure_coords = intranetClient.GetCoords(departure_address);
             if (departure_coords == null || !(departure_coords.Contains("lat") && departure_coords.Contains("lng")))
             {
                 Console.WriteLine("Uhh Uhh ! Something went wrong are you sure that's were you want to depart from ?\n"
@@ -38,7 +49,7 @@ namespace ClientIntranet
 
             Console.WriteLine("\nEnter your destination address: ");
             string arrival_address = Console.ReadLine();
-            string arrival_coords = tigliClient.GetCoords(arrival_address);
+            string arrival_coords = intranetClient.GetCoords(arrival_address);
             if (arrival_coords == null || !(arrival_coords.Contains("lat") && arrival_coords.Contains("lng")))
             {
                 Console.WriteLine("Uhh Uhh ! Something went wrong are you sure that's were you want to go ?\n"
@@ -60,9 +71,32 @@ namespace ClientIntranet
             Console.WriteLine("\nOrigin coordinates: lat = " + orig_latitude + " long = " + orig_long + ".\nDestination coordinates: lat = " + dest_latitude + ", long = " + dest_long + "\n");
             Console.WriteLine("Here is the way to go: ");
 
-            Console.WriteLine(tigliClient.GetItinerary(departure_coords, arrival_coords));
+            Console.WriteLine(intranetClient.GetItinerary(departure_coords, arrival_coords));
 
 
+        }
+
+        private static void InteractionDemo(VelibService.VelibServiceClient intranetClient)
+        {
+            string departure_address = "Place Charles de Gaulle, 75008 Paris, France";
+            string departure_coords = intranetClient.GetCoords(departure_address);
+
+            string arrival_address = "Rue de Rivoli, 75001 Paris, France";
+            string arrival_coords = intranetClient.GetCoords(arrival_address);
+
+            Console.WriteLine("Itinerary from: " + departure_address + " to " + arrival_address + "\n");
+
+            Console.WriteLine(intranetClient.GetItinerary(departure_coords, arrival_coords));
+
+            departure_address = "Asnières, France";
+            departure_coords = intranetClient.GetCoords(departure_address);
+
+            arrival_address = "Versailles, France";
+            arrival_coords = intranetClient.GetCoords(arrival_address);
+
+            Console.WriteLine("Itinerary from: " + departure_address + " to " + arrival_address + "\n");
+
+            Console.WriteLine(intranetClient.GetItinerary(departure_coords, arrival_coords));
         }
     }
 }
