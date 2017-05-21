@@ -58,7 +58,7 @@ namespace ProjetTigli
                     closest_orig_station.Attributes["lng"].Value,
                     "walking");
 
-                result += FormatXMLAnwser(walkingTotheStop);
+                result += walkingTotheStop;
 
                 result += "Bike from the station: " + closest_orig_station.Attributes["name"].Value + " to the station: " + closest_dest_station.Attributes["name"].Value;
 

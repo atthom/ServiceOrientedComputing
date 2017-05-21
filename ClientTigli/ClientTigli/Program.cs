@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientTigli
+namespace ClientIntranet
 {
     class Program
     {
         static void Main(string[] args)
         {
-            ServiceTigli.TigliServiceClient tigliClient = new ServiceTigli.TigliServiceClient();
+            ServiceTigli.TigliServiceClient tigliClient = new ServiceTigli.TigliServiceClient("intranet");
             string shouldContinue = "yes";
 
             while(shouldContinue.ToLower().Equals("yes") || shouldContinue.ToLower().Equals("y"))

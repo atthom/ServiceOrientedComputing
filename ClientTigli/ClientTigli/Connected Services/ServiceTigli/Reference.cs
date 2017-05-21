@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClientTigli.ServiceTigli {
+namespace ClientIntranet.ServiceTigli {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -29,12 +29,12 @@ namespace ClientTigli.ServiceTigli {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ITigliServiceChannel : ClientTigli.ServiceTigli.ITigliService, System.ServiceModel.IClientChannel {
+    public interface ITigliServiceChannel : ClientIntranet.ServiceTigli.ITigliService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class TigliServiceClient : System.ServiceModel.ClientBase<ClientTigli.ServiceTigli.ITigliService>, ClientTigli.ServiceTigli.ITigliService {
+    public partial class TigliServiceClient : System.ServiceModel.ClientBase<ClientIntranet.ServiceTigli.ITigliService>, ClientIntranet.ServiceTigli.ITigliService {
         
         public TigliServiceClient() {
         }

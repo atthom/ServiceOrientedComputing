@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2ebbb8ec-b8d5-41d6-aa64-0aa35de6054b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="dc081ef0-c02f-43ed-a359-fd62f53dc9f8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,13 +19,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8081/tigli/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="net.tcp://localhost:8081/tigli/mexIntranet" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TigliService1.wsdl" MetadataType="Wsdl" ID="46140cb2-5868-4049-9ce7-bf5a567105e8" SourceId="1" SourceUrl="http://localhost:8081/tigli/?wsdl" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="abdd1f46-1676-432b-b77b-e152b6b88445" SourceId="1" SourceUrl="http://localhost:8081/tigli/?xsd=xsd1" />
-    <MetadataFile FileName="item21.xsd" MetadataType="Schema" ID="97691d54-be5f-45bb-a370-f33f67a22377" SourceId="1" SourceUrl="http://localhost:8081/tigli/?xsd=xsd0" />
-    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="f368bb97-0267-4363-b28d-38be420d981a" SourceId="1" SourceUrl="http://localhost:8081/tigli/?disco" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="ae06a72b-1809-4b8f-a3d9-80ec77bf988c" SourceId="1" SourceUrl="net.tcp://localhost:8081/tigli/mexIntranet" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="636672b3-4672-4042-ad01-e3feced01594" SourceId="1" SourceUrl="net.tcp://localhost:8081/tigli/mexIntranet" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="699f0aea-ba19-4c54-a8f0-cc9f0ffac41d" SourceId="1" SourceUrl="net.tcp://localhost:8081/tigli/mexIntranet" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
